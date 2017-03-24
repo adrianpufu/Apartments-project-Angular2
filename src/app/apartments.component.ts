@@ -23,6 +23,13 @@ export class ApartmentsComponent implements OnInit {
   ngOnInit(): void {
     this.getApartments();
   }
+  delete(apartment: Apartment): void {
+    this.apartmentService
+      .delete(apartment.id)
+      .then(() => {
+        this.apartments = this.apartments.filter(h => h !== apartment);
+      });
+  }
 
   onSelect(apartment: Apartment): void {
     this.selectedApartment = apartment;

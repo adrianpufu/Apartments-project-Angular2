@@ -28,4 +28,9 @@ export class ApartmentDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  save(): void {
+    this.apartmentService.update(this.apartment)
+      .then(() => this.goBack());
+  }
 }

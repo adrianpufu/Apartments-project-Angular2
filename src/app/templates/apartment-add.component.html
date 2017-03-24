@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Add Apartment Form</h1>
+
+    <div class="form-group">
+        <label for="address">Address:</label>
+        <input #apAddress type="text" class="form-control" placeholder="address" id="address" name="address">
+    </div>
+    <div class="form-group">
+        <label for="surface">Surface:</label>
+        <input #apSurface type="text" class="form-control" placeholder="surface" id="surface" name="surface">
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input #apPrice type="text" class="form-control" placeholder="price" id="price" name="price">
+    </div>
+    <div class="form-group">
+        <label for="rooms">Rooms:</label>
+        <input #apRooms type="text" class="form-control" placeholder="rooms" id="rooms" name="rooms">
+    </div>
+    <div class="form-group">
+        <label for="baths">Baths:</label>
+        <input #apBaths type="text" class="form-control" placeholder="baths" id="baths" name="baths">
+    </div>
+    <br>
+    <button (click)="add(apRooms.value,apBaths.value,apAddress.value,apSurface.value,apPrice.value); apRooms.value=''; apBaths.value=''; apAddress.value=''; apSurface.value=''; apPrice.value='';">
+        Add
+        </button>
+    <button (click)="goBack()">Back</button>
+</div>

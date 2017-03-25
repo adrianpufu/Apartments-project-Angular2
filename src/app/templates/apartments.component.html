@@ -1,25 +1,25 @@
 <div class="container">
-    <h1>Apartments</h1>
+    <md-card>
+        <md-card-title>Apartments</md-card-title>
+    </md-card>
 
-    <a *ngFor="let model of apartments" [routerLink]="['/detail', model.id]">
-        <!--(click)="onSelect(model)"-->
-        <h2>Apartment: {{ model.id }}</h2>
+    <div *ngFor="let model of apartments">
+        <button md-button class="md-fab full-width" [routerLink]="['/detail', model.id]">
+        <md-grid-list cols="4" md-gutter="1em">
+            <md-grid-tile>
+                <h2>Address: {{ model.address }}</h2>
+            </md-grid-tile>
+            <md-grid-tile>
+                <h2>Surface: {{ model.surface }}</h2>
+            </md-grid-tile>
+            <md-grid-tile>
+                <h2>Price: {{ model.price }}</h2>
+            </md-grid-tile>
+            <md-grid-tile class="overlap100">
+                <button md-raised-button color="warn" class="delete full" (click)="delete(model); $event.stopPropagation();">Delete</button>
+        </md-grid-tile>
+        </md-grid-list>
+        </button>
+    </div>
 
-        <div class="row">
-            <div class="col-xs-2">Address:</div>
-            <div class="col-xs-10">{{ model.address }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-2">Surface:</div>
-            <div class="col-xs-10">{{ model.surface }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-2">Price:</div>
-            <div class="col-xs-10">{{ model.price }}</div>
-        </div>
-        <br>
-        <button class="delete" (click)="delete(model); $event.stopPropagation()">x</button>
-
-    </a>
-    <!--<apartment-detail [apartment]="selectedApartment"></apartment-detail>-->
 </div>

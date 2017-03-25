@@ -1,29 +1,44 @@
-<div class="container">
-    <h1>Add Apartment Form</h1>
-
-    <div class="form-group">
-        <label for="address">Address:</label>
-        <input #apAddress type="text" class="form-control" placeholder="address" id="address" name="address">
-    </div>
-    <div class="form-group">
-        <label for="surface">Surface:</label>
-        <input #apSurface type="text" class="form-control" placeholder="surface" id="surface" name="surface">
-    </div>
-    <div class="form-group">
-        <label for="price">Price:</label>
-        <input #apPrice type="text" class="form-control" placeholder="price" id="price" name="price">
-    </div>
-    <div class="form-group">
-        <label for="rooms">Rooms:</label>
-        <input #apRooms type="text" class="form-control" placeholder="rooms" id="rooms" name="rooms">
-    </div>
-    <div class="form-group">
-        <label for="baths">Baths:</label>
-        <input #apBaths type="text" class="form-control" placeholder="baths" id="baths" name="baths">
-    </div>
-    <br>
-    <button (click)="add(apRooms.value,apBaths.value,apAddress.value,apSurface.value,apPrice.value); apRooms.value=''; apBaths.value=''; apAddress.value=''; apSurface.value=''; apPrice.value='';">
-        Add
-        </button>
-    <button (click)="goBack()">Back</button>
-</div>
+<md-card>
+    <md-card-title>Add new apartment</md-card-title>
+</md-card>
+<md-grid-list cols="3" md-gutter="1em">
+    <md-grid-tile>
+    </md-grid-tile>
+    <md-grid-tile>
+        <form name="addApartmentForm" class="form">
+            <md-list>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput placeholder="Address" #apAddress name="address">
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput placeholder="Surface" #apSurface name="surface">
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput placeholder="Price" #apPrice name="price">
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput placeholder="Rooms" #apRooms name="rooms">
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput placeholder="Baths" #apBaths name="baths">
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <button md-button md-raised-button color="primary" aria-label="Add" (click)="add(apRooms.value,apBaths.value,apAddress.value,apSurface.value,apPrice.value); apRooms.value=''; apBaths.value=''; apAddress.value=''; apSurface.value=''; apPrice.value='';">Add</button>
+                    <button md-button (click)="goBack()">Back</button>
+                </md-list-item>
+            </md-list>
+        </form>
+    </md-grid-tile>
+    <md-grid-tile>
+    </md-grid-tile>
+</md-grid-list>

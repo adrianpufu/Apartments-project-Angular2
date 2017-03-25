@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+.full-width {
+    width: 100%;
+}
+
+.full {
+    width: 15%;
+    height: 15%;
+}
+
+.overlap100 {
+    z-index: 100;
+}
+
+.form md-list md-list-item {
+    margin: 20px;
+}

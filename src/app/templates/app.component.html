@@ -1,4 +1,23 @@
-<h1>{{title}}</h1>
-<a routerLink="/apartments">Apartments</a>
-<a routerLink="/add">Add Apartment</a>
-<router-outlet></router-outlet>
+<md-sidenav-container>
+
+    <md-sidenav #sidenav mode="side" class="app-sidenav">
+        <md-list layout="column">
+            <md-list-item routerLink="/apartments">
+                <button md-button class="md-fab full-width">
+                    <span>Apartments</span>
+                </button>
+            </md-list-item>
+            <md-list-item routerLink="/add">
+                <button md-button class="md-fab full-width">
+                    <span>Add Apartment</span>
+                </button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <md-toolbar color="primary">
+        <button md-button class="app-icon-button" (click)="sidenav.toggle()"><i class="material-icons app-toolbar-menu">menu</i></button> {{title}}
+    </md-toolbar>
+
+    <router-outlet></router-outlet>
+
+</md-sidenav-container>

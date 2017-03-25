@@ -15,6 +15,8 @@ import { ApartmentAddComponent } from './apartment-add.component';
 import { ApartmentService } from './services/apartment.service';
 
 import { AppRoutingModule }     from './app-routing.module';
+import { MaterialModule } from '@angular/material';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { AppRoutingModule }     from './app-routing.module';
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
+    MaterialModule,
   ],
   providers: [ApartmentService],
   bootstrap: [AppComponent]

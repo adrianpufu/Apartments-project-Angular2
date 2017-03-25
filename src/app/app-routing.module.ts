@@ -5,6 +5,7 @@ import { ApartmentDetailComponent } from './apartment-detail.component';
 import { ApartmentAddComponent } from './apartment-add.component';
 
 const routes: Routes = [
+    { path: '', redirectTo: '/apartments', pathMatch: 'full' },
     { path: 'add', component: ApartmentAddComponent },
     { path: 'detail/:id', component: ApartmentDetailComponent },
     { path: 'apartments', component: ApartmentsComponent }

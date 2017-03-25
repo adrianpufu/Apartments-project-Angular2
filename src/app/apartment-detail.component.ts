@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Apartment } from './models/apartment';
 import { ApartmentService } from './services/apartment.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'apartment-detail',
@@ -15,7 +16,8 @@ export class ApartmentDetailComponent implements OnInit {
   constructor(
     private apartmentService: ApartmentService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private localStorageService: LocalStorageService
   ) { }
   @Input() apartment: Apartment;
 
@@ -32,5 +34,6 @@ export class ApartmentDetailComponent implements OnInit {
   save(): void {
     this.apartmentService.update(this.apartment)
       .then(() => this.goBack());
+    localStorage.clear();
   }
 }

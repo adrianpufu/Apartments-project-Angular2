@@ -16,6 +16,7 @@ import { ApartmentService } from './services/apartment.service';
 
 import { AppRoutingModule }     from './app-routing.module';
 import { MaterialModule } from '@angular/material';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import 'hammerjs';
 
 @NgModule({
@@ -32,6 +33,10 @@ import 'hammerjs';
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
     MaterialModule,
+    LocalStorageModule.withConfig({
+      prefix: 'my-app',
+      storageType: 'localStorage'
+    }),
   ],
   providers: [ApartmentService],
   bootstrap: [AppComponent]

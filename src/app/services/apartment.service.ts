@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
+import { LocalStorageService } from 'angular-2-local-storage';
 import 'rxjs/add/operator/toPromise';
 
 import { Apartment } from '../models/apartment';
@@ -8,11 +8,18 @@ import { Apartment } from '../models/apartment';
 @Injectable()
 export class ApartmentService {
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private localStorageService: LocalStorageService) { }
 
     private apartmentsUrl = 'api/apartments';
-
+    
     getApartments(): Promise<Apartment[]> {
+        if (localStorage.getItem("apartments") != null) {
+            var thing = JSON.parse(localStorage.getItem("apartments") || "null");
+            if (thing) {
+                return Promise.resolve(thing);
+            }
+        }
+
         return this.http.get(this.apartmentsUrl)
             .toPromise()
             .then(response => response.json().data as Apartment[])

@@ -29,19 +29,23 @@ export class ApartmentAddComponent implements OnInit {
     }
 
     getApartments(): void {
-        this.apartmentService.getApartments().then(apartments => { this.apartments = apartments; localStorage.setItem("apartments", JSON.stringify(this.apartments)); });
+        this.apartmentService.getApartments().then(apartments => {
+            this.apartments = apartments;
+
+            if (localStorage.getItem("apartments") == null) {
+                localStorage.setItem("apartments", JSON.stringify(this.apartments));
+            }
+        });
     }
 
     add(rooms: number, baths: number, address: string, surface: number, price: number): void {
-        //address = address.trim();
 
         if (!rooms && !baths && !address && !surface && !price) { return; }
         this.apartmentService.create(rooms, baths, address, surface, price)
             .then(apartment => {
                 this.apartments.push(apartment);
             });
-        localStorage.clear();
-        this.getApartments();
+
     }
 
 

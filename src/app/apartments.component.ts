@@ -18,7 +18,14 @@ export class ApartmentsComponent implements OnInit {
   selectedApartment: Apartment;
 
   getApartments(): void {
-    this.apartmentService.getApartments().then(apartments => { this.apartments = apartments; localStorage.setItem("apartments", JSON.stringify(this.apartments)); });
+    this.apartmentService.getApartments().then(apartments => {
+      this.apartments = apartments;
+
+      if (localStorage.getItem("apartments") == null) {
+        localStorage.setItem("apartments", JSON.stringify(this.apartments));
+      }
+
+    });
   }
 
   ngOnInit(): void {
@@ -31,8 +38,7 @@ export class ApartmentsComponent implements OnInit {
       .then(() => {
         this.apartments = this.apartments.filter(h => h !== apartment);
       });
-    localStorage.clear();
-    this.getApartments();
+
   }
 
   onSelect(apartment: Apartment): void {

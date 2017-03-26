@@ -11,12 +11,13 @@ export class ApartmentService {
     constructor(private http: Http, private localStorageService: LocalStorageService) { }
 
     private apartmentsUrl = 'api/apartments';
-    
+
     getApartments(): Promise<Apartment[]> {
+
         if (localStorage.getItem("apartments") != null) {
-            var thing = JSON.parse(localStorage.getItem("apartments") || "null");
-            if (thing) {
-                return Promise.resolve(thing);
+            var apartments = JSON.parse(localStorage.getItem("apartments") || "null");
+            if (apartments) {
+                return Promise.resolve(apartments);
             }
         }
 
@@ -27,6 +28,18 @@ export class ApartmentService {
     }
 
     getApartment(id: number): Promise<Apartment> {
+
+        if (localStorage.getItem("apartments") != null) {
+            var apartments = JSON.parse(localStorage.getItem("apartments"));
+
+            if (apartments) {
+                var ap = apartments.find(ap => ap.id == id);
+                if (ap) {
+                    return Promise.resolve(ap);
+                }
+            }
+        }
+
         const url = `${this.apartmentsUrl}/${id}`;
         return this.http.get(url)
             .toPromise()
@@ -37,7 +50,22 @@ export class ApartmentService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     update(apartment: Apartment): Promise<Apartment> {
+
         const url = `${this.apartmentsUrl}/${apartment.id}`;
+
+        if (localStorage.getItem("apartments") != null) {
+            var apartments = JSON.parse(localStorage.getItem("apartments"));
+
+            if (apartments) {
+                var ap = apartments.find(ap => ap.id == apartment.id);
+                if (ap) {
+                    apartments.splice(apartments.indexOf(ap), 1);
+                    apartments.push(apartment);
+                    localStorage.setItem("apartments", JSON.stringify(apartments));
+                }
+            }
+        }
+
         return this.http
             .put(url, JSON.stringify(apartment), { headers: this.headers })
             .toPromise()
@@ -46,14 +74,46 @@ export class ApartmentService {
     }
 
     create(rooms: number, baths: number, address: string, surface: number, price: number): Promise<Apartment> {
+
+        if (localStorage.getItem("apartments") != null) {
+            var apartments = JSON.parse(localStorage.getItem("apartments"));
+
+            if (apartments) {
+                var maxid = 0;
+                apartments.map(x => {
+                    if (x.id > maxid) {
+                        maxid = x.id;
+                    }
+                })
+
+                apartments.push(new Apartment(maxid + 1, rooms, baths, address, surface, price));
+                localStorage.setItem("apartments", JSON.stringify(apartments));
+            }
+        }
+
+        var apartment = JSON.stringify({ rooms: rooms, baths: baths, address: address, surface: surface, price: price });
+
         return this.http
-            .post(this.apartmentsUrl, JSON.stringify({ rooms: rooms, baths: baths, address: address, surface: surface, price: price }), { headers: this.headers })
+            .post(this.apartmentsUrl, apartment, { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as Apartment)
             .catch(this.handleError);
     }
 
     delete(id: number): Promise<void> {
+
+        if (localStorage.getItem("apartments") != null) {
+            var apartments = JSON.parse(localStorage.getItem("apartments"));
+
+            if (apartments) {
+                var ap = apartments.find(ap => ap.id == id);
+                if (ap) {
+                    apartments.splice(apartments.indexOf(ap), 1);
+                    localStorage.setItem("apartments", JSON.stringify(apartments));
+                }
+            }
+        }
+
         const url = `${this.apartmentsUrl}/${id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
